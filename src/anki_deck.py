@@ -6,7 +6,7 @@ import random
 
 import click
 
-from src.grammar_example import GrammarExample
+from grammar_example import GrammarExample
 
 
 CARD_CSS = """
@@ -48,8 +48,8 @@ CARD_BACK = """
 """
 
 @click.command()
-@click.argument('input_file', prompt="Input json file coontaining grammar examples", type=click.Path(False))
-@click.argument('output_file', prompt="Output anki deck file", type=click.Path(False))
+@click.argument('input_file', type=click.Path(True))
+@click.argument('output_file', type=click.Path(False))
 def create_grammar_deck(
     input_file: Path,
     output_file: Path,
@@ -70,9 +70,10 @@ def create_grammar_deck(
     grammar_model = genanki.Model(
         model_id=model_id,
         name='Interactive Japanese Grammar Model',
-        fields=list(
-            GrammarExample.__dataclass_fields__.keys()
-        ),
+        fields=[
+            {"name": field_name}
+            for field_name in GrammarExample.__dataclass_fields__.keys()
+        ],
         templates=[
             {
             'name': 'Card 1',

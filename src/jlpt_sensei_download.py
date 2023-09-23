@@ -10,7 +10,7 @@ from tqdm import tqdm
 from bs4 import BeautifulSoup
 from urllib import request
 
-from src.grammar_example import GrammarExample
+from grammar_example import GrammarExample
 
 """JLPT Sensei grammar examples downloading tool
 
@@ -123,8 +123,7 @@ def fetch_nx_page(url: str) -> list[GrammarExample]:
         res += fetch_grammar_rule(
             grammar_rule.find("a", {"class": "jl-link"})["href"]
         )
-        
-
+        break
 
     return res
 
@@ -160,6 +159,7 @@ def fetch_nx_pages(url: str) -> list[GrammarExample]:
         res += fetch_nx_page(
             url=page_item["href"],
         )
+        break
 
     return res
 
@@ -187,6 +187,7 @@ def fetch_all() -> list[GrammarExample]:
         leave=False,
     ):
         examples += fetch_nx_pages(url=url)
+        break
 
     time_end = time()
     logging.info(f"Fetched {len(examples)} grammar examples from `{JLPT_SENSEI_URL}` in {time_end - time_start:0.5} seconds")
@@ -224,7 +225,7 @@ def examples_to_json(
 
 
 @click.command()
-@click.argument('output_file', prompt="Output file to store grammar examples", type=click.Path(False))
+@click.argument('output_file', type=click.Path(False))
 def create_grammar_file(
     output_file: Path,
 ) -> None:
