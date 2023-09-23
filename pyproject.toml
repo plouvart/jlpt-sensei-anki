@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "jlpt-sensei-anki"
+version = "0.1.0"
+description = "Scrap grammar notes from JLPT sensei and make anki cards from them"
+authors = ["Pierre Louvart <pierre.louvart@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+anki = "^2.1.66"
+beautifulsoup4 = "^4.12.2"
+tqdm = "^4.66.1"
+genanki = "^0.13.0"
+click = "^8.1.7"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
